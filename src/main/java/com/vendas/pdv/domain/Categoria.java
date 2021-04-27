@@ -2,10 +2,20 @@ package com.vendas.pdv.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+// Para criar a tabela do banco de dados é necessário fazer o mapeamento. 
+
+@Entity //Javax -> Entidade no banco de dados.
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//serializable -> Os objetos dela, podem ser convertidos em uma sequencia de bytes. 
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) // geração da identificação do objeto no banco de dados
 	private Integer id;
 	private String nome;
 	
