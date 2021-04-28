@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vendas.pdv.domain.Categoria;
 import com.vendas.pdv.domain.Produto;
 import com.vendas.pdv.repositories.ProdutoRepository;
 import com.vendas.pdv.services.exception.ObjectNotFoundException;
@@ -21,7 +20,7 @@ public class ProdutoService {
 	public Produto find(Integer id) {
 		Optional<Produto> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 	}
 
 }
