@@ -8,37 +8,38 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-// Para criar a tabela do banco de dados é necessário fazer o mapeamento. 
-
-@Entity //Javax -> Entidade no banco de dados.
-public class Categoria implements Serializable {
+@Entity
+public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	//serializable -> Os objetos dela, podem ser convertidos em uma sequencia de bytes. 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) // geração da identificação do objeto no banco de dados
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private Double preco;
 	
-	// associações	
-	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos = new ArrayList<>();
-		
-	// construtor vazio padrão java
-	public Categoria() {
-		
+	@ManyToMany
+	@JoinTable(
+		name = "PRODUTO_CATEGORIA", 
+		joinColumns = @JoinColumn(name = "produto_id"),
+	    inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private List<Categoria> categorias = new ArrayList<>();
+	
+	public Produto() {
 	}
 
-	// Construction use fields
-	public Categoria(Integer id, String nome) {
+	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.preco = preco;
 	}
 
-	// Getters e Setters - Methodos de acesso.
 	public Integer getId() {
 		return id;
 	}
@@ -54,16 +55,24 @@ public class Categoria implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
 	
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<Categoria> getCategorias() {
+		return categorias;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
+	
 
-	//hashCode e equalds -> São necessários para fazer o comparativo de valor dos objetos - Considera várias opções de comparação.
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,7 +89,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -89,6 +98,4 @@ public class Categoria implements Serializable {
 		return true;
 	}
 
-	
-	
 }

@@ -8,19 +8,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vendas.pdv.domain.Categoria;
+import com.vendas.pdv.domain.Produto;
 import com.vendas.pdv.repositories.CategoriaRepository;
+import com.vendas.pdv.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class VendasApplication implements CommandLineRunner{
 
 	@Autowired
-	private CategoriaRepository categoriarepository;
+	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(VendasApplication.class, args);
 	}
-
-	//ComandLineRuner -> permite implementar metodos quando a aplicação iniciar
+	/*
+		ComandLineRuner -> permite implementar metodos quando a aplicação iniciar
+	*/	
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -28,17 +33,26 @@ public class VendasApplication implements CommandLineRunner{
 		Categoria cat1 = new Categoria(null, "Infomática");
 		Categoria cat2 = new Categoria(null, "Escritório");
 		
-		categoriarepository.saveAll(Arrays.asList(cat1, cat2));
-		
-		//Salvar os objetos
-		
-		
-		//cat1
-		//cat2
-		
 		//p1
+		Produto p1 = new Produto(null, "Computador", 2000.00);
 		//p2
+		Produto p2 = new Produto(null, "Impressora", 800.00);
 		//p3
+		Produto p3 = new Produto(null, "Mouse", 80.00);
+		
+		//Conhecer as categorias dos produtos
+		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
+		cat2.getProdutos().addAll(Arrays.asList(p2));
+		
+		//Conhecer as produtos da categoria 
+		p1.getCategorias().addAll(Arrays.asList(cat1));
+		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
+		p3.getCategorias().addAll(Arrays.asList(cat1));
+		
+		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
+		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+		
+		
 		
 		//ip1
 		//ip2
