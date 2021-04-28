@@ -45,6 +45,14 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) { // Para que ele possa receber o id é preciso desse PathVariable, para sofsticar o metodo, ele trocou ReposonseEntity da lista, ele é um tipo especial, encapsula, armazena uma resposta HTTP para um serviço Rest
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	//DataIntegrityViolationException
+	
 }
 
 
