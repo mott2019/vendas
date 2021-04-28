@@ -22,7 +22,7 @@ public class ProdutoResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) { // Para que ele possa receber o id é preciso desse PathVariable, para sofsticar o metodo, ele trocou ReposonseEntity da lista, ele é um tipo especial, encapsula, armazena uma resposta HTTP para um serviço Rest
-		Produto obj = service.buscar(id);
+		Produto obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 

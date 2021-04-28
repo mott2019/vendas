@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 // Para criar a tabela do banco de dados é necessário fazer o mapeamento. 
 
 @Entity //Javax -> Entidade no banco de dados.
@@ -23,6 +25,7 @@ public class Categoria implements Serializable {
 	private String nome;
 	
 	// associações	
+	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 		
