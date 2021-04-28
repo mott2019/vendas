@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vendas.pdv.domain.Produto;
-import com.vendas.pdv.services.ProdutoService;
+import com.vendas.pdv.domain.Pedido;
+import com.vendas.pdv.services.PedidoService;
 
 // Colocar anotação para o Springboot 
 // Acrescentar o Id na categoria
 @RestController
-@RequestMapping(value = "/produtos")
-public class ProdutoResource {
+@RequestMapping(value = "/pedidos")
+public class PedidoResource {
 	
 	// Instancia o serviço
 	@Autowired
-	private ProdutoService service;
+	private PedidoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) { // Para que ele possa receber o id é preciso desse PathVariable, para sofsticar o metodo, ele trocou ReposonseEntity da lista, ele é um tipo especial, encapsula, armazena uma resposta HTTP para um serviço Rest
-		Produto obj = service.find(id);
+		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
